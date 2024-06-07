@@ -35,6 +35,9 @@ jobs:
         df -h
         echo "Removing large directories"
         rm -rf /usr/share/dotnet/
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
         df -h
     - name: Compile Java sources
       run: |
