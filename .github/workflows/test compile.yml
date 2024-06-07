@@ -1,4 +1,4 @@
-name: Run JPF
+name: Test Compilation
 
 on:
   push:
@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        java: [ '17' ]
-    name: Java ${{ matrix.java }} Run JPF
+        java: [ '11' ]
+    name: Java ${{ matrix.java }} Compile
 
     steps:
     - name: Checkout Code
@@ -25,4 +25,4 @@ jobs:
 
     - name: Compile Java sources
       run: |
-        ./gradlew clean build -x test
+        ./gradlew assemble
