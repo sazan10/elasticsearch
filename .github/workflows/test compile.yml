@@ -25,4 +25,4 @@ jobs:
 
     - name: Compile Java sources
       run: |
-        ./gradlew assemble
+        ./gradlew clean assemble
