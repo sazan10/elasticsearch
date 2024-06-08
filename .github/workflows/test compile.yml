@@ -43,4 +43,4 @@ jobs:
         df -h
     - name: Compile Java sources
       run: |
-        ./gradlew clean assemble
+        ./gradlew clean localDistro
