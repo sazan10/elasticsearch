@@ -1,0 +1,35 @@
+name: Run CASR
+on:
+  push:
+
+jobs:
+  run-casr:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        java: [ '17' ]
+    name: Java ${{ matrix.java }} Run CASR
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+      with:
+        ref: 71b1b30fa79610299a907bca3fed5834685f3942
+    - name: Set up JDK ${{ matrix.java }}
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: ${{ matrix.java }}
+    - name: Install rust and dependencies
+      run: | 
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y        
+        sudo apt install gdb lsb-release
+    - name: Install casr
+      run: |
+        cargo install casr
+    - name: Compile using gradle
+      run: |
+        ./gradlew localDistro
+    - name: Run CASR
+      run: |
+        find . -name '*.jar' -exec sh -c 'echo "Processing {}" && timeout 200s casr-java -o {}.casrep -- java -jar {}' \;
