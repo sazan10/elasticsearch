@@ -32,7 +32,7 @@ jobs:
         ./gradlew localDistro
     - name: Run CASR
       run: |
-        find . -name '*.jar' -exec sh -c 'echo "Processing {}" && timeout 200s casr-java -o {}.casrep -- java -jar {}' \;
+        find . -name '*.java' -exec sh -c 'echo "Processing {}" && timeout 60s casr-java -o {}.casrep -- java  {}' \;
     - name: List any casr reports created
       run: |
         find ./ -name "*.casrep" 
